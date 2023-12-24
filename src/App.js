@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React, { useState } from 'react';
+import { Container, Typography, Box } from '@mui/material';
+import PostList from './components/PostList';
+import PostForm from './components/PostForm';
 
-function App() {
+const App = () => {
+  const [posts, setPosts] = useState([]);
+
+  const addPost = (post) => {
+    setPosts([...posts, { id: Date.now(), ...post }]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container maxWidth="md">
+      <Box sx={{ marginTop: 5, textAlign: 'center' }}>
+        <Typography variant="h2" gutterBottom>
+          Simple Blog Platform
+        </Typography>
+        <PostForm onSubmit={addPost} />
+        <PostList posts={posts} />
+      </Box>
+    </Container>
   );
-}
+};
 
 export default App;
